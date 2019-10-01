@@ -5,6 +5,8 @@ import sys
 
 read_arg = sys.argv[1]
 name_arg = sys.argv[2]
+column_arg = sys.argv[3]
+content_arg = sys.argv[4]
 
 
 class ReadCSV(object):
@@ -21,6 +23,13 @@ class ReadCSV(object):
         for line in reader:
             list_person.append(line)
         return list_person
+
+    def modif_data_person(self):
+        if self.read_arg is not None:
+            for person in self.csv_dict_reader():
+                if person['first_name'] == self.name_arg:
+
+
 
     def show_person(self):
         if self.read_arg is not None:
