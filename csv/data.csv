@@ -1,5 +1,5 @@
-first_name,last_name,departament,age,projects
-Stefan,Florescu,QA,30,"NFA,IRP,GMI,Fanatico"
-Radu,Sirghe,QA,25,"NFA,IRP,GMI"
-Stefanita,Ciutac,QA,19,"NFA,IRP,GMI"
-Eugenia,Garciu,QA,19,"NFA,IRP,GMI,Fanatico"
+first_name,last_name,departament,position,age,projects
+Stefan,Florescu,QA,menager,30,"NFA,IRP,GMI,Fanatico"
+Radu,Sirghe,QA,junior,25,"NFA,IRP,GMI"
+Stefanita,Ciutac,junior,QA,19,"NFA,IRP,GMI"
+Eugenia,Garciu,QA,junior,19,"NFA,IRP,GMI,Fanatico"
