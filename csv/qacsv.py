@@ -1,17 +1,16 @@
 #!/usr/bin/python2.7
 
 import csv
-import sys
-
-exec_arg = sys.argv[1]
 
 
-class ReadCSV(object):
-
+class BaseClass(object):
     def __init__(self, text_file='/home/noction/CSV/python/csv/data.csv'):
         with open(text_file) as read_file:
-            self.r_csv_file = read_file.readlines()
-            self.name_arg = sys.argv[2]
+            self.r_csv_file = csv.DictReader(read_file)
+            print self.r_csv_file
+
+class ReadCSV(BaseClass):
+
 
     def csv_dict_reader(self):
         list_person = []
@@ -20,25 +19,29 @@ class ReadCSV(object):
             list_person.append(line)
         return list_person
 
-    def show_person(self):
-        displayed_person = []
-        for person in self.csv_dict_reader():
-            if person['first_name'] == self.name_arg:
-                displayed_person.append(person)
-        if len(displayed_person) > 0:
-            for show_person in displayed_person:
-                return "Name: {} {}\nDepartament: {}\nPosition: {}\nAge: {}\nProjects: {}".format(show_person['first_name'], show_person['last_name'], show_person['departament'], show_person['position'], show_person['age'], show_person['projects'])
-        elif len(displayed_person) == 0:
-            return "Not a person by name \'" + self.name_arg + "\'"
+    def show_person(self, person_identifier=None):
+        employees_list = self.csv_dict_reader()
+        if person_identifier is None:
+            return employees_list
+        else:
+            displayed_person = []
+            for person in employees_list:
+                if person['first_name'] == person_identifier:
+                    displayed_person.append(person)
+            if len(displayed_person) > 0:
+                for show_person in displayed_person:
+                    return "Name: {} {}\nDepartament: {}\nPosition: {}\nAge: {}\nProjects: {}".format(show_person['first_name'], show_person['last_name'], show_person['departament'], show_person['position'], show_person['age'], show_person['projects'])
+            elif len(displayed_person) == 0:
+                return "Not a person by name \'" + person_identifier + "\'"
 
 
 class ModifyCSV(ReadCSV):
 
-    def __init__(self, text_file='/home/noction/CSV/python/csv/data.csv'):
-        super(ModifyCSV, self).__init__(text_file)
-        self.text_file_to_write = text_file
-        self.column_arg = sys.argv[3]
-        self.content_arg = sys.argv[4]
+    # def __init__(self, text_file='/home/noction/CSV/python/csv/data.csv'):
+    #     super(ModifyCSV, self).__init__(text_file)
+    #     self.text_file_to_write = text_file
+    #     self.column_arg = sys.argv[3]
+    #     self.content_arg = sys.argv[4]
 
     def modif_data_person(self):
         mod_list = []
@@ -82,21 +85,7 @@ class DeletePersonCSV(ReadCSV):
                 w.writerow(x)
         return "Deleted!!"
 
-def exec_function():
-    if exec_arg == "-a":
-        r = ReadCSV()
-        return r.show_person()
-    elif exec_arg == "-m":
-        m = ModifyCSV()
-        return m.add_modif_in_file()
-    elif exec_arg == "-d":
-        d = DeletePersonCSV()
-        return d.add_modif_in_file()
-    else:
-        return "Incorect argument"
 
-
-print(exec_function())
 
 
 # https://stackoverflow.com/questions/29725932/deleting-rows-with-python-in-a-csv-file
