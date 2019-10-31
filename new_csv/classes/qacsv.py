@@ -41,7 +41,9 @@ class ReadCSV(object):
                 displayed_person.append(person)
         if len(displayed_person) > 0:
             for show_person in displayed_person:
-                return "Name: {} {}\nDepartament: {}\nPosition: {}\nAge: {}\nProjects: {}".format(show_person[0], show_person[1], show_person[2], show_person[3], show_person[4], show_person[5])
+                person = "Name:          {} {}\nDepartament:   {}\nPosition:      {}\nAge:           {}\nProjects:      {}"\
+                    .format(show_person[0], show_person[1], show_person[2], show_person[3], show_person[4], show_person[5])
+                print "="*50 + "\n" + person + "\n" + "="*50
         elif len(displayed_person) == 0:
             return "Not a person by name \'" + person_identifier + "\'"
 
@@ -69,7 +71,7 @@ class ModifyCSV(ReadCSV):
             w.writerow(key_list)
             for x in self.modif_data_person(args, key_list):
                 w.writerow(x)
-        return "Modified!!"
+        print "Modified!!"
 
 
 class DeletePersonCSV(ReadCSV):
@@ -92,6 +94,6 @@ class DeletePersonCSV(ReadCSV):
             w.writerow(key_list)
             for x in self.del_person(person_identifier):
                 w.writerow(x)
-        return "Deleted!!"
+        print "Deleted!!"
 
 
