@@ -16,21 +16,6 @@ class ReadCSV(object):
         list_person = self.list[1:]
         return list_person
 
-    # def show_person(self, person_identifier=None):
-    #     employees_list = self.csv_dict_reader()
-    #     if person_identifier is None:
-    #         return employees_list
-    #     else:
-    #         displayed_person = []
-    #         for person in employees_list:
-    #             if person[0] == person_identifier:
-    #                 displayed_person.append(person)
-    #         if len(displayed_person) > 0:
-    #             for show_person in displayed_person:
-    #                 return "Name: {} {}\nDepartament: {}\nPosition: {}\nAge: {}\nProjects: {}".format(show_person[0], show_person[1], show_person[2], show_person[3], show_person[4], show_person[5])
-    #         elif len(displayed_person) == 0:
-    #             return "Not a person by name \'" + person_identifier + "\'"
-
     def show_person(self, person_identifier=None):
         employees_list = self.csv_dict_reader()
         displayed_person = []
