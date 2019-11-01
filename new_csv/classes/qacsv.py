@@ -20,7 +20,7 @@ class ReadCSV(object):
         employees_list = self.csv_dict_reader()
         displayed_person = []
         for person in employees_list:
-            if person_identifier is None:
+            if person_identifier is "empty":
                 displayed_person.append(person)
             elif person[0] == person_identifier:
                 displayed_person.append(person)

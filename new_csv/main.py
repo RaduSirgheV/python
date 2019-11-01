@@ -11,7 +11,7 @@ _csv_file_path = path + 'file/data.csv'
 
 def exec_function():
     parser = argparse.ArgumentParser(description='Process the task')
-    parser.add_argument('-g', '--afisa', default="Null", type=str, required=False, nargs='?',
+    parser.add_argument('-g', '--afisa', default=None, type=str, required=False, nargs='?', const="empty",
                         help='Afiseaza un anumit angajat')
     parser.add_argument('-m', '--modifica', nargs='+', type=str, default=None, required=False,
                         help='Modifica datele unui anumit angajat')
@@ -21,8 +21,8 @@ def exec_function():
                         help='Sterge un anumit angajat')
 
     args = parser.parse_args()
-
-    if args.afisa is None:
+    print args
+    if args.afisa is "empty":
         r = ReadCSV(_csv_file_path)
         r.show_person(args.afisa)
     elif args.afisa is not None:
