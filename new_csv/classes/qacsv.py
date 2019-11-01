@@ -17,12 +17,12 @@ class ReadCSV(BaseClass):
     def __init__(self, text_file):
         BaseClass.__init__(self, text_file)
 
-    def csv_dict_reader(self):
+    def del_header_row(self):
         list_person = self.list[1:]
         return list_person
 
     def show_person(self, person_identifier=None):
-        employees_list = self.csv_dict_reader()
+        employees_list = self.del_header_row()
         displayed_person = []
         for person in employees_list:
             if person_identifier is "empty":
@@ -47,7 +47,7 @@ class ModifyCSV(ReadCSV):
 
     def modif_data_person(self, args, key_list):
         mod_list = []
-        for person in self.csv_dict_reader():
+        for person in self.del_header_row():
             if person[0] == args[0]:
                 person[key_list.index(args[1])] = str(args[2])
                 mod_list.append(person)
@@ -77,7 +77,7 @@ class AddPersonCSV(ReadCSV):
             with open(self.text_file, 'w') as w_file:
                 w = csv.writer(w_file)
                 w.writerow(key_list)
-                for x in self.csv_dict_reader():
+                for x in self.del_header_row():
                     w.writerow(x)
                 w.writerow(argument)
             print "Added!!"
@@ -93,7 +93,7 @@ class DeletePersonCSV(ReadCSV):
 
     def del_person(self, person_id):
         mod_list = []
-        for person in self.csv_dict_reader():
+        for person in self.del_header_row():
             if person[0] != person_id:
                 mod_list.append(person)
         return mod_list
