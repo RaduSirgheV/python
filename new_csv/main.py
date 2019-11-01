@@ -21,23 +21,20 @@ def exec_function():
                         help='Sterge un anumit angajat')
 
     args = parser.parse_args()
-    print args
+
     if args.afisa is "empty":
         r = ReadCSV(_csv_file_path)
         r.show_person(args.afisa)
     elif args.afisa is not None:
         g = ReadCSV(_csv_file_path)
         g.show_person(args.afisa)
-
-    if args.modifica is not None:
+    elif args.modifica is not None:
         m = ModifyCSV(_csv_file_path)
         m.add_modif_in_file(args.modifica)
-
-    if args.adding is not None:
+    elif args.adding is not None:
         a = AddPersonCSV(_csv_file_path)
         a.add_person_to_csv(args.adding)
-
-    if args.delete is not None:
+    elif args.delete is not None:
         d = DeletePersonCSV(_csv_file_path)
         d.add_modif_in_file(args.delete)
 

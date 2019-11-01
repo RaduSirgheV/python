@@ -3,14 +3,19 @@
 import csv
 
 
-class ReadCSV(object):
-
+class BaseClass(object):
     def __init__(self, text_file):
         with open(text_file) as read_file:
             self.r_csv_file = csv.reader(read_file, delimiter=',')
             self.list = []
             for row in self.r_csv_file:
                 self.list.append(row)
+
+
+class ReadCSV(BaseClass):
+
+    def __init__(self, text_file):
+        BaseClass.__init__(self, text_file)
 
     def csv_dict_reader(self):
         list_person = self.list[1:]
@@ -25,10 +30,11 @@ class ReadCSV(object):
             elif person[0] == person_identifier:
                 displayed_person.append(person)
         if len(displayed_person) > 0:
+            print "=" * 50
             for show_person in displayed_person:
                 person = "Name:          {} {}\nDepartament:   {}\nPosition:      {}\nAge:           {}\nProjects:      {}"\
                     .format(show_person[0], show_person[1], show_person[2], show_person[3], show_person[4], show_person[5])
-                print "="*50 + "\n" + person + "\n" + "="*50
+                print person + "\n" + "="*50
         elif len(displayed_person) == 0:
             return "Not a person by name \'" + person_identifier + "\'"
 
@@ -77,6 +83,7 @@ class AddPersonCSV(ReadCSV):
             print "Added!!"
         else:
             print "Too much or too little data"
+
 
 class DeletePersonCSV(ReadCSV):
 
