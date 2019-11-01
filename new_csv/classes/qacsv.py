@@ -59,6 +59,25 @@ class ModifyCSV(ReadCSV):
         print "Modified!!"
 
 
+class AddPersonCSV(ReadCSV):
+
+    def __init__(self, text_file):
+        ReadCSV.__init__(self, text_file)
+        self.text_file = text_file
+
+    def add_person_to_csv(self, argument):
+        key_list = ["first_name", "last_name", "departament", "position", "age", "projects"]
+        if len(argument) == 6:
+            with open(self.text_file, 'w') as w_file:
+                w = csv.writer(w_file)
+                w.writerow(key_list)
+                for x in self.csv_dict_reader():
+                    w.writerow(x)
+                w.writerow(argument)
+            print "Added!!"
+        else:
+            print "Too much or too little data"
+
 class DeletePersonCSV(ReadCSV):
 
     def __init__(self, text_file):
