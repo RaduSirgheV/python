@@ -3,19 +3,42 @@
 import csv
 
 
+class Record(object):
+
+    def __init__(self, record):
+        self._record = record
+
+    @property
+    def name(self):
+        return self._record['first_name']
+
+    @property
+    def family(self):
+        return self._record['last_name']
+
+    @name.setter
+    def name(self, new_name):
+        if isinstance(new_name, str):
+            self._record['first_name'] = new_name
+            print 'have changed the name of Employee'
+        else:
+            raise ValueError('You have passed an invalid value for the name field: {}, expected str'.format(type(new_name)))
+
+
+
 class BaseClass(object):
     def __init__(self, text_file):
         with open(text_file) as read_file:
-            self.r_csv_file = csv.reader(read_file, delimiter=',')
+            self.r_csv_file = csv.DictReader(read_file, delimiter=',')
             self.list = []
             for row in self.r_csv_file:
-                self.list.append(row)
+                self.list.append(Record(row))
 
 
 class ReadCSV(BaseClass):
 
-    def __init__(self, text_file):
-        BaseClass.__init__(self, text_file)
+    # def __init__(self, text_file):
+    #     BaseClass.__init__(self, text_file)
 
     def del_header_row(self):
         list_person = self.list[1:]

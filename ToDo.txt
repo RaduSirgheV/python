@@ -1,0 +1,6 @@
+De Facut:
+- g identificator nu se gasete
+posibilitatea de a gasi dupa familie
+adauga validare la fildurile angajatilor
+adauga class de tip wrapper pentru csv records (Records)
+
