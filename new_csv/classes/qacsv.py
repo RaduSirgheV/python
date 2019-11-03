@@ -2,34 +2,14 @@
 
 import csv
 
-
-class Record(object):
-
-    def __init__(self, record):
-        self._record = record
-
-    @property
-    def name(self):
-        return self._record['first_name']
-
-    @property
-    def family(self):
-        return self._record['last_name']
-
-    @name.setter
-    def name(self, new_name):
-        if isinstance(new_name, str):
-            self._record['first_name'] = new_name
-            print 'have changed the name of Employee'
-        else:
-            raise ValueError('You have passed an invalid value for the name field: {}, expected str'.format(type(new_name)))
-
+from new_csv.classes.record import Record
+from record import Record
 
 
 class BaseClass(object):
     def __init__(self, text_file):
         with open(text_file) as read_file:
-            self.r_csv_file = csv.DictReader(read_file, delimiter=',')
+            self.r_csv_file = csv.DictReader(read_file)
             self.list = []
             for row in self.r_csv_file:
                 self.list.append(Record(row))
@@ -37,53 +17,49 @@ class BaseClass(object):
 
 class ReadCSV(BaseClass):
 
-    # def __init__(self, text_file):
-    #     BaseClass.__init__(self, text_file)
-
-    def del_header_row(self):
-        list_person = self.list[1:]
-        return list_person
+    def formatting_person_text(self, person):
+        text = "Numele: {} {}\nDepartamentu: {}\nPozitia: {}\nVirsta: {}\nProiectele: {}".format(person.name, person.family, person.departament, person.position, person.age, person.projects)
+        return text
 
     def show_person(self, person_identifier=None):
-        employees_list = self.del_header_row()
+        employees_list = self.list
         displayed_person = []
         for person in employees_list:
             if person_identifier is "empty":
                 displayed_person.append(person)
-            elif person[0] == person_identifier:
+            elif person_identifier == person.name or person_identifier == person.family:
                 displayed_person.append(person)
-        if len(displayed_person) > 0:
+        print "=" * 50
+        for person in displayed_person:
+            print self.formatting_person_text(person)
             print "=" * 50
-            for show_person in displayed_person:
-                person = "Name:          {} {}\nDepartament:   {}\nPosition:      {}\nAge:           {}\nProjects:      {}"\
-                    .format(show_person[0], show_person[1], show_person[2], show_person[3], show_person[4], show_person[5])
-                print person + "\n" + "="*50
-        elif len(displayed_person) == 0:
-            return "Not a person by name \'" + person_identifier + "\'"
 
 
-class ModifyCSV(ReadCSV):
+class ModifyCSV(BaseClass):
 
     def __init__(self, text_file):
-        ReadCSV.__init__(self, text_file)
+        super(ModifyCSV, self).__init__(text_file)
         self.text_file = text_file
 
-    def modif_data_person(self, args, key_list):
+    def modif_data_person(self, args):
         mod_list = []
-        for person in self.del_header_row():
-            if person[0] == args[0]:
-                person[key_list.index(args[1])] = str(args[2])
+        employees = self.list
+        for person in employees:
+            if args[0] == person.name:
+                column = args[1]
+                person.column = str(args[2])
                 mod_list.append(person)
             else:
                 mod_list.append(person)
         return mod_list
 
     def add_modif_in_file(self, args):
-        key_list = ["first_name", "last_name", "departament", "position", "age", "projects"]
         with open(self.text_file, 'w') as w_file:
-            w = csv.writer(w_file)
-            w.writerow(key_list)
-            for x in self.modif_data_person(args, key_list):
+            fields = ["first_name", "last_name", "departament", "position", "age", "projects"]
+            w = csv.DictWriter(w_file, fields)
+            w.writeheader()
+            print self.modif_data_person(args)
+            for x in self.modif_data_person(args):
                 w.writerow(x)
         print "Modified!!"
 
