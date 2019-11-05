@@ -3,6 +3,19 @@ class Record(object):
     def __init__(self, record):
         self._record = record
 
+    def list_key(self):
+        return self.record.keys()
+
+    def change_key_val(self, key, val):
+        if key in self.record:
+            self._record[key] = val
+        else:
+            raise ValueError('Do not have such key defined in record {}'.format(self.record.keys()))
+
+    @property
+    def record(self):
+        return self._record
+
     @property
     def name(self):
         return self._record['first_name']
@@ -61,11 +74,11 @@ class Record(object):
 
     @age.setter
     def age(self, new_age):
-        if isinstance(new_age, str):
+        if isinstance(new_age, int):
             self._record['age'] = new_age
             print "Have changed the age of Employee"
         else:
-            raise ValueError('You have passed an invalid value for the age field: {}, expected str'.format(type(new_age)))
+            raise ValueError('You have passed an invalid value for the age field: {}, expected int'.format(type(new_age)))
 
     @projects.setter
     def projects(self, new_projects):

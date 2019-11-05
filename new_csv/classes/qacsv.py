@@ -2,7 +2,6 @@
 
 import csv
 
-from new_csv.classes.record import Record
 from record import Record
 
 
@@ -45,9 +44,10 @@ class ModifyCSV(BaseClass):
         mod_list = []
         employees = self.list
         for person in employees:
-            if args[0] == person.name:
-                column = args[1]
-                person.column = str(args[2])
+            if args[0] == person.name or args[0] == person.family:
+                key_name = args[1]
+                val = args[2]
+                person.change_key_val(key=key_name, val=val)
                 mod_list.append(person)
             else:
                 mod_list.append(person)
@@ -55,55 +55,60 @@ class ModifyCSV(BaseClass):
 
     def add_modif_in_file(self, args):
         with open(self.text_file, 'w') as w_file:
-            fields = ["first_name", "last_name", "departament", "position", "age", "projects"]
+            fields = self.list[0].list_key()
             w = csv.DictWriter(w_file, fields)
             w.writeheader()
-            print self.modif_data_person(args)
             for x in self.modif_data_person(args):
-                w.writerow(x)
+                w.writerow(x.record)
         print "Modified!!"
 
 
-class AddPersonCSV(ReadCSV):
+class AddPersonCSV(BaseClass):
 
     def __init__(self, text_file):
-        ReadCSV.__init__(self, text_file)
+        super(AddPersonCSV, self).__init__(text_file)
         self.text_file = text_file
 
-    def add_person_to_csv(self, argument):
-        key_list = ["first_name", "last_name", "departament", "position", "age", "projects"]
-        if len(argument) == 6:
+    def new_person(self, person_data):
+        list_key = self.list[0].list_key()
+        person_dict = dict(zip(list_key, person_data))
+        return person_dict
+
+    def add_person_to_csv(self, person_data):
+        if len(person_data) == 6:
             with open(self.text_file, 'w') as w_file:
-                w = csv.writer(w_file)
-                w.writerow(key_list)
-                for x in self.del_header_row():
-                    w.writerow(x)
-                w.writerow(argument)
+                fields = self.list[0].list_key()
+                w = csv.DictWriter(w_file, fields)
+                w.writeheader()
+                for x in self.list:
+                    w.writerow(x.record)
+                w.writerow(self.new_person(person_data))
             print "Added!!"
         else:
             print "Too much or too little data"
 
 
-class DeletePersonCSV(ReadCSV):
+class DeletePersonCSV(BaseClass):
 
     def __init__(self, text_file):
-        ReadCSV.__init__(self, text_file)
+        super(DeletePersonCSV, self).__init__(text_file)
         self.text_file = text_file
 
     def del_person(self, person_id):
+        employees = self.list
         mod_list = []
-        for person in self.del_header_row():
-            if person[0] != person_id:
+        for person in employees:
+            if person_id != person.name:
                 mod_list.append(person)
         return mod_list
 
     def add_modif_in_file(self, person_identifier):
-        key_list = ["first_name", "last_name", "departament", "position", "age", "projects"]
         with open(self.text_file, 'w') as w_file:
-            w = csv.writer(w_file)
-            w.writerow(key_list)
+            fields = self.list[0].list_key()
+            w = csv.DictWriter(w_file, fields)
+            w.writeheader()
             for x in self.del_person(person_identifier):
-                w.writerow(x)
+                w.writerow(x.record)
         print "Deleted!!"
 
 

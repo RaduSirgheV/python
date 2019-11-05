@@ -8,5 +8,6 @@ print x.list[0].family
 print x.list[0].departament
 print x.list[0].position
 print x.list[0].age
+x.list[0].age = 'as'
 print x.list[0].projects
 
