@@ -1,3 +1,15 @@
+
+class CsvKeys(object):
+
+    name = 'first_name'
+    family = 'last_name'
+    age = 'age'
+    department = 'departament'
+    position = 'position'
+    projects = 'projects'
+
+    allowed_keys = 'first_name,last_name,departament,age,position,projects'.split(',')
+
 class Record(object):
 
     def __init__(self, record):
@@ -18,19 +30,19 @@ class Record(object):
 
     @property
     def name(self):
-        return self._record['first_name']
+        return self._record[CsvKeys.name]
 
     @property
     def family(self):
-        return self._record['last_name']
+        return self._record[CsvKeys.family]
 
     @property
     def departament(self):
-        return self._record['departament']
+        return self._record[CsvKeys.department]
 
     @property
     def position(self):
-        return self._record['position']
+        return self._record[CsvKeys.position]
 
     @property
     def age(self):

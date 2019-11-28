@@ -2,7 +2,8 @@
 
 import csv
 
-from record import Record
+from record import Record, CsvKeys
+
 
 
 class BaseClass(object):
@@ -44,9 +45,17 @@ class ModifyCSV(BaseClass):
         mod_list = []
         employees = self.list
         for person in employees:
-            if args[0] == person.name or args[0] == person.family:
+            _id = args[0]
+            if _id in (person.family, person.name):
                 key_name = args[1]
                 val = args[2]
+
+                # check_keys:
+                if key_name == CsvKeys.name:
+                    person.name = val
+                elif key_name == CsvKeys.family:
+                    person.family = val
+                elif
                 person.change_key_val(key=key_name, val=val)
                 mod_list.append(person)
             else:
