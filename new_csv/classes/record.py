@@ -69,12 +69,12 @@ class Record(object):
             raise ValueError('You have passed an invalid value for the family field: {}, expected str'.format(type(new_family)))
 
     @department.setter
-    def departament(self, new_departament):
-        if isinstance(new_departament, str):
-            self._record['departament'] = new_departament
-            print "Have changed the departament of Employee"
+    def department(self, new_department):
+        if isinstance(new_department, str):
+            self._record['department'] = new_department
+            print "Have changed the department of Employee"
         else:
-            raise ValueError('You have passed an invalid value for the department field: {}, expected str'.format(type(new_departament)))
+            raise ValueError('You have passed an invalid value for the department field: {}, expected str'.format(type(new_department)))
 
     @position.setter
     def position(self, new_position):

@@ -16,7 +16,7 @@ def exec_function():
     parser.add_argument('-m', '--modifica', nargs='+', type=str, default=None, required=False,
                         help='Modifica datele unui anumit angajat')
     parser.add_argument('-a', '--adding', nargs='+', type=str, default=None, required=False,
-                        help='Adaugarea unui angajat (first_name,last_name,departament,position,age,projects)')
+                        help='Adaugarea unui angajat (first_name,last_name,department,position,age,projects)')
     parser.add_argument('-d', '--delete', type=str, default=None, required=False,
                         help='Sterge un anumit angajat')
 
