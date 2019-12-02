@@ -18,7 +18,7 @@ class BaseClass(object):
 class ReadCSV(BaseClass):
 
     def formatting_person_text(self, person):
-        text = "Numele: {} {}\nDepartamentu: {}\nPozitia: {}\nVirsta: {}\nProiectele: {}".format(person.name, person.family, person.departament, person.position, person.age, person.projects)
+        text = "Numele: {} {}\nDepartamentu: {}\nPozitia: {}\nVirsta: {}\nProiectele: {}".format(person.name, person.family, person.department, person.position, person.age, person.projects)
         return text
 
     def show_person(self, person_identifier=None):
@@ -55,8 +55,15 @@ class ModifyCSV(BaseClass):
                     person.name = val
                 elif key_name == CsvKeys.family:
                     person.family = val
-                elif
-                person.change_key_val(key=key_name, val=val)
+                elif key_name == CsvKeys.department:
+                    person.departament = val
+                elif key_name == CsvKeys.age:
+                    person.age = val
+                elif key_name == CsvKeys.position:
+                    person.position = val
+                elif key_name == CsvKeys.projects:
+                    person.projects = val
+                # person.change_key_val(key=key_name, val=val)
                 mod_list.append(person)
             else:
                 mod_list.append(person)

@@ -4,11 +4,11 @@ class CsvKeys(object):
     name = 'first_name'
     family = 'last_name'
     age = 'age'
-    department = 'departament'
+    department = 'department'
     position = 'position'
     projects = 'projects'
 
-    allowed_keys = 'first_name,last_name,departament,age,position,projects'.split(',')
+    allowed_keys = 'first_name,last_name,department,age,position,projects'.split(',')
 
 class Record(object):
 
@@ -37,7 +37,7 @@ class Record(object):
         return self._record[CsvKeys.family]
 
     @property
-    def departament(self):
+    def department(self):
         return self._record[CsvKeys.department]
 
     @property
@@ -68,7 +68,7 @@ class Record(object):
         else:
             raise ValueError('You have passed an invalid value for the family field: {}, expected str'.format(type(new_family)))
 
-    @departament.setter
+    @department.setter
     def departament(self, new_departament):
         if isinstance(new_departament, str):
             self._record['departament'] = new_departament
