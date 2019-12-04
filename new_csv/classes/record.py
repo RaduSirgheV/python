@@ -10,6 +10,7 @@ class CsvKeys(object):
 
     allowed_keys = 'first_name,last_name,department,age,position,projects'.split(',')
 
+
 class Record(object):
 
     def __init__(self, record):
@@ -17,12 +18,6 @@ class Record(object):
 
     def list_key(self):
         return self.record.keys()
-
-    def change_key_val(self, key, val):
-        if key in self.record:
-            self._record[key] = val
-        else:
-            raise ValueError('Do not have such key defined in record {}'.format(self.record.keys()))
 
     @property
     def record(self):
@@ -46,11 +41,11 @@ class Record(object):
 
     @property
     def age(self):
-        return self._record['age']
+        return self._record[CsvKeys.age]
 
     @property
     def projects(self):
-        return self._record['projects']
+        return self._record[CsvKeys.projects]
 
     @name.setter
     def name(self, new_name):
